@@ -7,17 +7,14 @@ import android.view.View;
 import com.zzh.lib.dialog.Dialoger;
 
 
-public class CombineCreator extends BaseAnimatorCreator
-{
+public class CombineCreator extends BaseAnimatorCreator {
     private final Dialoger.AnimatorCreator[] mCreators;
 
-    public CombineCreator(Dialoger.AnimatorCreator... creators)
-    {
+    public CombineCreator(Dialoger.AnimatorCreator... creators) {
         if (creators == null || creators.length <= 0)
             throw new IllegalArgumentException("creators is null or empty");
 
-        for (Dialoger.AnimatorCreator item : creators)
-        {
+        for (Dialoger.AnimatorCreator item : creators) {
             if (item == null)
                 throw new NullPointerException("creators array contains null item");
         }
@@ -25,19 +22,16 @@ public class CombineCreator extends BaseAnimatorCreator
         mCreators = creators;
     }
 
-    protected final Dialoger.AnimatorCreator[] getCreators()
-    {
+    protected final Dialoger.AnimatorCreator[] getCreators() {
         return mCreators;
     }
 
-    private Animator getAnimator(boolean show, View view)
-    {
+    private Animator getAnimator(boolean show, View view) {
         final Dialoger.AnimatorCreator[] creators = getCreators();
         final AnimatorSet animatorSet = new AnimatorSet();
 
         Animator mLast = null;
-        for (int i = 0; i < creators.length; i++)
-        {
+        for (int i = 0; i < creators.length; i++) {
             final Animator animator = creators[i].createAnimator(show, view);
             if (animator == null)
                 continue;
@@ -57,8 +51,7 @@ public class CombineCreator extends BaseAnimatorCreator
     }
 
     @Override
-    protected Animator onCreateAnimator(boolean show, View view)
-    {
+    protected Animator onCreateAnimator(boolean show, View view) {
         return getAnimator(show, view);
     }
 }

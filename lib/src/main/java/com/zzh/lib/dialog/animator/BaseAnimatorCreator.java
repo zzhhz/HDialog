@@ -7,28 +7,22 @@ import android.view.View;
 import com.zzh.lib.dialog.Dialoger;
 
 
-public abstract class BaseAnimatorCreator implements Dialoger.AnimatorCreator
-{
+public abstract class BaseAnimatorCreator implements Dialoger.AnimatorCreator {
     @Override
-    public final Animator createAnimator(final boolean show, final View view)
-    {
+    public final Animator createAnimator(final boolean show, final View view) {
         beforeCreateAnimator(show, view);
 
         final Animator animator = onCreateAnimator(show, view);
-        if (animator != null)
-        {
-            animator.addListener(new AnimatorListenerAdapter()
-            {
+        if (animator != null) {
+            animator.addListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationStart(Animator animation)
-                {
+                public void onAnimationStart(Animator animation) {
                     super.onAnimationStart(animation);
                     BaseAnimatorCreator.this.onAnimationStart(show, view);
                 }
 
                 @Override
-                public void onAnimationEnd(Animator animation)
-                {
+                public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     animation.removeListener(this);
                     BaseAnimatorCreator.this.onAnimationEnd(show, view);
@@ -45,8 +39,7 @@ public abstract class BaseAnimatorCreator implements Dialoger.AnimatorCreator
      * @param show
      * @param view
      */
-    protected void beforeCreateAnimator(boolean show, View view)
-    {
+    protected void beforeCreateAnimator(boolean show, View view) {
     }
 
     /**
@@ -66,8 +59,7 @@ public abstract class BaseAnimatorCreator implements Dialoger.AnimatorCreator
      * @param view
      * @param animator
      */
-    protected void onAnimatorCreated(boolean show, View view, Animator animator)
-    {
+    protected void onAnimatorCreated(boolean show, View view, Animator animator) {
     }
 
     /**
@@ -76,8 +68,7 @@ public abstract class BaseAnimatorCreator implements Dialoger.AnimatorCreator
      * @param show
      * @param view
      */
-    protected void onAnimationStart(boolean show, View view)
-    {
+    protected void onAnimationStart(boolean show, View view) {
     }
 
     /**
@@ -86,12 +77,10 @@ public abstract class BaseAnimatorCreator implements Dialoger.AnimatorCreator
      * @param show
      * @param view
      */
-    protected void onAnimationEnd(boolean show, View view)
-    {
+    protected void onAnimationEnd(boolean show, View view) {
     }
 
-    protected static long getScaledDuration(float deltaValue, float maxValue, long maxDuration)
-    {
+    protected static long getScaledDuration(float deltaValue, float maxValue, long maxDuration) {
         if (maxDuration <= 0)
             return 0;
         if (maxValue == 0)

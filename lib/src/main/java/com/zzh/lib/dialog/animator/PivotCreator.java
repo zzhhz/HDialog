@@ -9,8 +9,7 @@ import com.zzh.lib.dialog.Dialoger;
 /**
  * 在动画开始的时候修改view的锚点，动画结束后还原view的锚点
  */
-public class PivotCreator extends BaseAnimatorCreator
-{
+public class PivotCreator extends BaseAnimatorCreator {
     private final Dialoger.AnimatorCreator mCreator;
 
     private PivotProvider mPivotProviderX;
@@ -18,8 +17,7 @@ public class PivotCreator extends BaseAnimatorCreator
 
     private PivotHolder mPivotHolder;
 
-    public PivotCreator(Dialoger.AnimatorCreator creator, PivotProvider pivotProviderX, PivotProvider pivotProviderY)
-    {
+    public PivotCreator(Dialoger.AnimatorCreator creator, PivotProvider pivotProviderX, PivotProvider pivotProviderY) {
         if (creator == null)
             throw new NullPointerException("creator is null");
 
@@ -28,41 +26,32 @@ public class PivotCreator extends BaseAnimatorCreator
         mPivotProviderY = pivotProviderY;
     }
 
-    protected final PivotHolder getPivotHolder()
-    {
+    protected final PivotHolder getPivotHolder() {
         if (mPivotHolder == null)
             mPivotHolder = new PivotHolder();
         return mPivotHolder;
     }
 
     @Override
-    protected final Animator onCreateAnimator(boolean show, View view)
-    {
+    protected final Animator onCreateAnimator(boolean show, View view) {
         return mCreator.createAnimator(show, view);
     }
 
     @Override
-    protected void onAnimationStart(boolean show, View view)
-    {
+    protected void onAnimationStart(boolean show, View view) {
         super.onAnimationStart(show, view);
-        if (mPivotProviderX == null)
-        {
-            mPivotProviderX = new PivotProvider()
-            {
+        if (mPivotProviderX == null) {
+            mPivotProviderX = new PivotProvider() {
                 @Override
-                public float getPivot(boolean show, View view)
-                {
+                public float getPivot(boolean show, View view) {
                     return view.getPivotX();
                 }
             };
         }
-        if (mPivotProviderY == null)
-        {
-            mPivotProviderY = new PivotProvider()
-            {
+        if (mPivotProviderY == null) {
+            mPivotProviderY = new PivotProvider() {
                 @Override
-                public float getPivot(boolean show, View view)
-                {
+                public float getPivot(boolean show, View view) {
                     return view.getPivotY();
                 }
             };
@@ -72,18 +61,15 @@ public class PivotCreator extends BaseAnimatorCreator
     }
 
     @Override
-    protected void onAnimationEnd(boolean show, View view)
-    {
+    protected void onAnimationEnd(boolean show, View view) {
         super.onAnimationEnd(show, view);
         getPivotHolder().restore(view);
     }
 
-    private static class PivotHolder
-    {
+    private static class PivotHolder {
         private final float[] mPivotXYOriginal = new float[2];
 
-        public void setPivotXY(float pivotX, float pivotY, View view)
-        {
+        public void setPivotXY(float pivotX, float pivotY, View view) {
             if (view == null)
                 return;
 
@@ -94,8 +80,7 @@ public class PivotCreator extends BaseAnimatorCreator
             view.setPivotY(pivotY);
         }
 
-        public void restore(View view)
-        {
+        public void restore(View view) {
             if (view == null)
                 return;
 
@@ -104,8 +89,7 @@ public class PivotCreator extends BaseAnimatorCreator
         }
     }
 
-    public interface PivotProvider
-    {
+    public interface PivotProvider {
         float getPivot(boolean show, View view);
     }
 }

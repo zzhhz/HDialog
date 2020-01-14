@@ -14,43 +14,35 @@ import com.zzh.lib.dialog.DialogView;
 import com.zzh.lib.dialog.Dialoger;
 
 
-public class BaseDialogView extends FrameLayout implements DialogView, View.OnClickListener
-{
+public class BaseDialogView extends FrameLayout implements DialogView, View.OnClickListener {
     private Dialoger mDialoger;
 
-    public BaseDialogView(Context context)
-    {
+    public BaseDialogView(Context context) {
         this(context, null);
     }
 
-    public BaseDialogView(Context context, AttributeSet attrs)
-    {
+    public BaseDialogView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public void setContentView(int layoutId)
-    {
+    public void setContentView(int layoutId) {
         removeAllViews();
         LayoutInflater.from(getContext()).inflate(layoutId, this, true);
     }
 
-    public void setContentView(View view)
-    {
+    public void setContentView(View view) {
         removeAllViews();
         addView(view);
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
 
     }
 
     @Override
-    public Dialoger getDialoger()
-    {
-        if (mDialoger == null)
-        {
+    public Dialoger getDialoger() {
+        if (mDialoger == null) {
             mDialoger = new HDialoger((Activity) getContext());
             mDialoger.setContentView(this);
             initDialog(mDialoger);
@@ -58,34 +50,26 @@ public class BaseDialogView extends FrameLayout implements DialogView, View.OnCl
         return mDialoger;
     }
 
-    protected void initDialog(Dialoger dialog)
-    {
+    protected void initDialog(Dialoger dialog) {
         dialog.setCanceledOnTouchOutside(false);
     }
 
     @Override
-    public void dismiss()
-    {
-        if (mDialoger != null)
-        {
+    public void dismiss() {
+        if (mDialoger != null) {
             mDialoger.dismiss();
-        } else
-        {
+        } else {
             final ViewParent parent = getParent();
-            if (parent instanceof ViewGroup)
-            {
-                try
-                {
+            if (parent instanceof ViewGroup) {
+                try {
                     ((ViewGroup) parent).removeView(this);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                 }
             }
         }
     }
 
-    protected static void setBackgroundDrawable(View view, Drawable drawable)
-    {
+    protected static void setBackgroundDrawable(View view, Drawable drawable) {
         if (view == null)
             return;
 

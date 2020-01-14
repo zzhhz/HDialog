@@ -2,8 +2,7 @@ package com.zzh.lib.dialog.impl;
 
 import android.animation.Animator;
 
-class HVisibilityAnimatorHandler
-{
+class HVisibilityAnimatorHandler {
     private Animator mShowAnimator;
     private Animator mHideAnimator;
 
@@ -18,11 +17,9 @@ class HVisibilityAnimatorHandler
      *
      * @param animator
      */
-    public void setShowAnimator(Animator animator)
-    {
+    public void setShowAnimator(Animator animator) {
         final Animator old = mShowAnimator;
-        if (old != animator)
-        {
+        if (old != animator) {
             if (old != null)
                 old.removeListener(mShowAnimatorListener);
 
@@ -38,8 +35,7 @@ class HVisibilityAnimatorHandler
      *
      * @param listener
      */
-    public void setShowAnimatorListener(Animator.AnimatorListener listener)
-    {
+    public void setShowAnimatorListener(Animator.AnimatorListener listener) {
         mShowAnimatorListener.setOriginal(listener);
     }
 
@@ -48,10 +44,8 @@ class HVisibilityAnimatorHandler
      *
      * @return true-动画被执行
      */
-    public boolean startShowAnimator()
-    {
-        if (mShowAnimator != null)
-        {
+    public boolean startShowAnimator() {
+        if (mShowAnimator != null) {
             if (mShowAnimator.isStarted())
                 return true;
 
@@ -67,16 +61,14 @@ class HVisibilityAnimatorHandler
      *
      * @return
      */
-    public boolean isShowAnimatorStarted()
-    {
+    public boolean isShowAnimatorStarted() {
         return mShowAnimator != null && mShowAnimator.isStarted();
     }
 
     /**
      * 取消显示动画
      */
-    public void cancelShowAnimator()
-    {
+    public void cancelShowAnimator() {
         if (mShowAnimator != null)
             mShowAnimator.cancel();
     }
@@ -91,11 +83,9 @@ class HVisibilityAnimatorHandler
      *
      * @param animator
      */
-    public void setHideAnimator(Animator animator)
-    {
+    public void setHideAnimator(Animator animator) {
         final Animator old = mHideAnimator;
-        if (old != animator)
-        {
+        if (old != animator) {
             if (old != null)
                 old.removeListener(mHideAnimatorListener);
 
@@ -111,8 +101,7 @@ class HVisibilityAnimatorHandler
      *
      * @param listener
      */
-    public void setHideAnimatorListener(Animator.AnimatorListener listener)
-    {
+    public void setHideAnimatorListener(Animator.AnimatorListener listener) {
         mHideAnimatorListener.setOriginal(listener);
     }
 
@@ -121,10 +110,8 @@ class HVisibilityAnimatorHandler
      *
      * @return true-动画被执行
      */
-    public boolean startHideAnimator()
-    {
-        if (mHideAnimator != null)
-        {
+    public boolean startHideAnimator() {
+        if (mHideAnimator != null) {
             if (mHideAnimator.isStarted())
                 return true;
 
@@ -140,55 +127,47 @@ class HVisibilityAnimatorHandler
      *
      * @return
      */
-    public boolean isHideAnimatorStarted()
-    {
+    public boolean isHideAnimatorStarted() {
         return mHideAnimator != null && mHideAnimator.isStarted();
     }
 
     /**
      * 取消隐藏动画
      */
-    public void cancelHideAnimator()
-    {
+    public void cancelHideAnimator() {
         if (mHideAnimator != null)
             mHideAnimator.cancel();
     }
 
     //---------- Hide end ----------
 
-    private static final class AnimatorListenerWrapper implements Animator.AnimatorListener
-    {
+    private static final class AnimatorListenerWrapper implements Animator.AnimatorListener {
         private Animator.AnimatorListener mOriginal;
 
-        public void setOriginal(Animator.AnimatorListener original)
-        {
+        public void setOriginal(Animator.AnimatorListener original) {
             mOriginal = original;
         }
 
         @Override
-        public void onAnimationStart(Animator animation)
-        {
+        public void onAnimationStart(Animator animation) {
             if (mOriginal != null)
                 mOriginal.onAnimationStart(animation);
         }
 
         @Override
-        public void onAnimationEnd(Animator animation)
-        {
+        public void onAnimationEnd(Animator animation) {
             if (mOriginal != null)
                 mOriginal.onAnimationEnd(animation);
         }
 
         @Override
-        public void onAnimationCancel(Animator animation)
-        {
+        public void onAnimationCancel(Animator animation) {
             if (mOriginal != null)
                 mOriginal.onAnimationCancel(animation);
         }
 
         @Override
-        public void onAnimationRepeat(Animator animation)
-        {
+        public void onAnimationRepeat(Animator animation) {
             if (mOriginal != null)
                 mOriginal.onAnimationRepeat(animation);
         }

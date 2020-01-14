@@ -2,8 +2,7 @@ package com.zzh.lib.dialog;
 
 import android.view.View;
 
-public interface TargetDialoger
-{
+public interface TargetDialoger {
     /**
      * x方向偏移量，大于0-向右；小于0-向左
      *
@@ -28,8 +27,7 @@ public interface TargetDialoger
      */
     void show(View target, Position position);
 
-    enum Position
-    {
+    enum Position {
         /**
          * 在target左边外侧
          */

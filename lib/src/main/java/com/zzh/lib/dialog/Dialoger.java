@@ -8,8 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
-public interface Dialoger
-{
+public interface Dialoger {
     /**
      * 设置调试模式，内部会输出日志，日志tag：Dialoger
      *
@@ -247,8 +246,7 @@ public interface Dialoger
     /**
      * 关闭监听
      */
-    interface OnDismissListener
-    {
+    interface OnDismissListener {
         /**
          * 消失后回调
          *
@@ -260,8 +258,7 @@ public interface Dialoger
     /**
      * 显示监听
      */
-    interface OnShowListener
-    {
+    interface OnShowListener {
         /**
          * 显示后回调
          *
@@ -273,8 +270,7 @@ public interface Dialoger
     /**
      * 动画创建接口
      */
-    interface AnimatorCreator
-    {
+    interface AnimatorCreator {
         /**
          * 创建动画
          * <br>
@@ -287,8 +283,7 @@ public interface Dialoger
         Animator createAnimator(boolean show, View view);
     }
 
-    interface LifecycleCallback
-    {
+    interface LifecycleCallback {
         /**
          * 窗口显示之前回调
          *

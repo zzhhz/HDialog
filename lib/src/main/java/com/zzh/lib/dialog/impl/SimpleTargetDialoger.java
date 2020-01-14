@@ -12,8 +12,7 @@ import com.zzh.lib.tracker.ViewTracker;
 import com.zzh.lib.view.ViewUpdater;
 import com.zzh.lib.view.impl.OnGlobalLayoutChangeUpdater;
 
-class SimpleTargetDialoger implements TargetDialoger
-{
+class SimpleTargetDialoger implements TargetDialoger {
     private final Dialoger mDialoger;
 
     private ViewUpdater mUpdater;
@@ -27,8 +26,7 @@ class SimpleTargetDialoger implements TargetDialoger
 
     private Dialoger.AnimatorCreator mModifyAnimatorCreator;
 
-    public SimpleTargetDialoger(Dialoger dialoger)
-    {
+    public SimpleTargetDialoger(Dialoger dialoger) {
         if (dialoger == null)
             throw new NullPointerException("dialoger is null");
 
@@ -36,15 +34,11 @@ class SimpleTargetDialoger implements TargetDialoger
         dialoger.addLifecycleCallback(mLifecycleCallback);
     }
 
-    private final Dialoger.LifecycleCallback mLifecycleCallback = new Dialoger.LifecycleCallback()
-    {
+    private final Dialoger.LifecycleCallback mLifecycleCallback = new Dialoger.LifecycleCallback() {
         @Override
-        public void onStart(Dialoger dialoger)
-        {
-            if (getTracker().getSource() != null && getTracker().getTarget() != null && mPosition != null)
-            {
-                switch (mPosition)
-                {
+        public void onStart(Dialoger dialoger) {
+            if (getTracker().getSource() != null && getTracker().getTarget() != null && mPosition != null) {
+                switch (mPosition) {
                     case LeftOutside:
                         getTracker().setPosition(ViewTracker.Position.Left);
                         setDefaultAnimator(new PivotPercentCreator(new ScaleXYCreator(), 1.0f, 0.5f));
@@ -122,58 +116,45 @@ class SimpleTargetDialoger implements TargetDialoger
         }
 
         @Override
-        public void onStop(Dialoger dialoger)
-        {
+        public void onStop(Dialoger dialoger) {
             getUpdater().stop();
             getTracker().setSource(null).setTarget(null);
 
             mPosition = null;
-            if (mModifyAnimatorCreator != null && mModifyAnimatorCreator == mDialoger.getAnimatorCreator())
-            {
+            if (mModifyAnimatorCreator != null && mModifyAnimatorCreator == mDialoger.getAnimatorCreator()) {
                 mDialoger.setAnimatorCreator(null);
             }
         }
     };
 
-    private void setDefaultAnimator(Dialoger.AnimatorCreator creator)
-    {
-        if (mDialoger.getAnimatorCreator() == null)
-        {
+    private void setDefaultAnimator(Dialoger.AnimatorCreator creator) {
+        if (mDialoger.getAnimatorCreator() == null) {
             mDialoger.setAnimatorCreator(creator);
             mModifyAnimatorCreator = creator;
         }
     }
 
-    private DialogerBackup getDialogerBackup()
-    {
+    private DialogerBackup getDialogerBackup() {
         if (mDialogerBackup == null)
             mDialogerBackup = new DialogerBackup();
         return mDialogerBackup;
     }
 
-    private ViewUpdater getUpdater()
-    {
-        if (mUpdater == null)
-        {
+    private ViewUpdater getUpdater() {
+        if (mUpdater == null) {
             mUpdater = new OnGlobalLayoutChangeUpdater();
-            mUpdater.setUpdatable(new ViewUpdater.Updatable()
-            {
+            mUpdater.setUpdatable(new ViewUpdater.Updatable() {
                 @Override
-                public void update()
-                {
+                public void update() {
                     getTracker().update();
                 }
             });
-            mUpdater.setOnStateChangeCallback(new ViewUpdater.OnStateChangeCallback()
-            {
+            mUpdater.setOnStateChangeCallback(new ViewUpdater.OnStateChangeCallback() {
                 @Override
-                public void onStateChanged(boolean started, ViewUpdater updater)
-                {
-                    if (started)
-                    {
+                public void onStateChanged(boolean started, ViewUpdater updater) {
+                    if (started) {
                         getDialogerBackup().backup(mDialoger);
-                    } else
-                    {
+                    } else {
                         getDialogerBackup().restore(mDialoger);
                     }
                 }
@@ -182,28 +163,22 @@ class SimpleTargetDialoger implements TargetDialoger
         return mUpdater;
     }
 
-    private ViewTracker getTracker()
-    {
-        if (mTracker == null)
-        {
+    private ViewTracker getTracker() {
+        if (mTracker == null) {
             mTracker = new HViewTracker();
-            mTracker.setCallback(new ViewTracker.Callback()
-            {
+            mTracker.setCallback(new ViewTracker.Callback() {
                 @Override
-                public boolean canUpdate(View source, View target)
-                {
+                public boolean canUpdate(View source, View target) {
                     return target != null && source != null
                             && source.getWidth() > 0 && source.getHeight() > 0;
                 }
 
                 @Override
-                public void onUpdate(int x, int y, View source, View target)
-                {
+                public void onUpdate(int x, int y, View source, View target) {
                     x += mMarginX;
                     y += mMarginY;
 
-                    switch (mPosition)
-                    {
+                    switch (mPosition) {
                         case LeftOutside:
                         case LeftOutsideTop:
                         case LeftOutsideCenter:
@@ -255,22 +230,19 @@ class SimpleTargetDialoger implements TargetDialoger
     }
 
     @Override
-    public TargetDialoger setMarginX(int margin)
-    {
+    public TargetDialoger setMarginX(int margin) {
         mMarginX = margin;
         return this;
     }
 
     @Override
-    public TargetDialoger setMarginY(int margin)
-    {
+    public TargetDialoger setMarginY(int margin) {
         mMarginY = margin;
         return this;
     }
 
     @Override
-    public void show(View target, Position position)
-    {
+    public void show(View target, Position position) {
         if (position == null)
             throw new NullPointerException("position is null");
 
@@ -284,8 +256,7 @@ class SimpleTargetDialoger implements TargetDialoger
         mDialoger.show();
     }
 
-    private static class DialogerBackup
-    {
+    private static class DialogerBackup {
         private int mPaddingLeft;
         private int mPaddingTop;
         private int mPaddingRight;
@@ -294,8 +265,7 @@ class SimpleTargetDialoger implements TargetDialoger
 
         private boolean mHasBackup;
 
-        public void backup(Dialoger dialoger)
-        {
+        public void backup(Dialoger dialoger) {
             mPaddingLeft = dialoger.getPaddingLeft();
             mPaddingTop = dialoger.getPaddingTop();
             mPaddingRight = dialoger.getPaddingRight();
@@ -305,10 +275,8 @@ class SimpleTargetDialoger implements TargetDialoger
             mHasBackup = true;
         }
 
-        public void restore(Dialoger dialoger)
-        {
-            if (mHasBackup)
-            {
+        public void restore(Dialoger dialoger) {
+            if (mHasBackup) {
                 dialoger.setPadding(mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom);
                 dialoger.setGravity(mGravity);
             }

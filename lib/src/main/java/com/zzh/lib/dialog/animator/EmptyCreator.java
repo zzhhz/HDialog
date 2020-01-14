@@ -6,11 +6,9 @@ import android.view.View;
 import com.zzh.lib.dialog.Dialoger;
 
 
-public final class EmptyCreator implements Dialoger.AnimatorCreator
-{
+public final class EmptyCreator implements Dialoger.AnimatorCreator {
     @Override
-    public Animator createAnimator(boolean show, View view)
-    {
+    public Animator createAnimator(boolean show, View view) {
         return null;
     }
 }

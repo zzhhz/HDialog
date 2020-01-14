@@ -17,8 +17,7 @@ import com.zzh.lib.dialog.R;
 /**
  * 带标题，内容，确定按钮和取消按钮
  */
-public class HDialogConfirmView extends BaseDialogView implements DialogConfirmView
-{
+public class HDialogConfirmView extends BaseDialogView implements DialogConfirmView {
     public TextView tv_title;
 
     public FrameLayout fl_content;
@@ -29,19 +28,16 @@ public class HDialogConfirmView extends BaseDialogView implements DialogConfirmV
 
     private Callback mCallback;
 
-    public HDialogConfirmView(Context context)
-    {
+    public HDialogConfirmView(Context context) {
         this(context, null);
     }
 
-    public HDialogConfirmView(Context context, AttributeSet attrs)
-    {
+    public HDialogConfirmView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         setContentView(R.layout.lib_dialogview_view_confirm);
         tv_title = findViewById(R.id.tv_title);
         fl_content = findViewById(R.id.fl_content);
@@ -52,16 +48,14 @@ public class HDialogConfirmView extends BaseDialogView implements DialogConfirmV
         tv_confirm.setOnClickListener(this);
         tv_cancel.setOnClickListener(this);
 
-        if (getLayoutParams() == null)
-        {
+        if (getLayoutParams() == null) {
             setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
         }
     }
 
     @Override
-    protected void initDialog(Dialoger dialog)
-    {
+    protected void initDialog(Dialoger dialog) {
         super.initDialog(dialog);
         final int defaultPadding = (int) (getContext().getResources().getDisplayMetrics().widthPixels * 0.1f);
         dialog.setPadding(defaultPadding, 0, defaultPadding, 0);
@@ -69,36 +63,30 @@ public class HDialogConfirmView extends BaseDialogView implements DialogConfirmV
     }
 
     @Override
-    public DialogConfirmView setCustomView(int layoutId)
-    {
+    public DialogConfirmView setCustomView(int layoutId) {
         fl_content.removeAllViews();
         LayoutInflater.from(getContext()).inflate(layoutId, fl_content, true);
         return this;
     }
 
     @Override
-    public DialogConfirmView setCustomView(View view)
-    {
+    public DialogConfirmView setCustomView(View view) {
         fl_content.removeAllViews();
         fl_content.addView(view);
         return this;
     }
 
     @Override
-    public DialogConfirmView setCallback(Callback callback)
-    {
+    public DialogConfirmView setCallback(Callback callback) {
         mCallback = callback;
         return this;
     }
 
     @Override
-    public DialogConfirmView setTextTitle(String text)
-    {
-        if (TextUtils.isEmpty(text))
-        {
+    public DialogConfirmView setTextTitle(String text) {
+        if (TextUtils.isEmpty(text)) {
             tv_title.setVisibility(View.GONE);
-        } else
-        {
+        } else {
             tv_title.setVisibility(View.VISIBLE);
             tv_title.setText(text);
         }
@@ -106,13 +94,10 @@ public class HDialogConfirmView extends BaseDialogView implements DialogConfirmV
     }
 
     @Override
-    public DialogConfirmView setTextContent(String text)
-    {
-        if (TextUtils.isEmpty(text))
-        {
+    public DialogConfirmView setTextContent(String text) {
+        if (TextUtils.isEmpty(text)) {
             tv_content.setVisibility(View.GONE);
-        } else
-        {
+        } else {
             tv_content.setVisibility(View.VISIBLE);
             tv_content.setText(text);
         }
@@ -120,13 +105,10 @@ public class HDialogConfirmView extends BaseDialogView implements DialogConfirmV
     }
 
     @Override
-    public DialogConfirmView setTextConfirm(String text)
-    {
-        if (TextUtils.isEmpty(text))
-        {
+    public DialogConfirmView setTextConfirm(String text) {
+        if (TextUtils.isEmpty(text)) {
             tv_confirm.setVisibility(View.GONE);
-        } else
-        {
+        } else {
             tv_confirm.setVisibility(View.VISIBLE);
             tv_confirm.setText(text);
         }
@@ -135,13 +117,10 @@ public class HDialogConfirmView extends BaseDialogView implements DialogConfirmV
     }
 
     @Override
-    public DialogConfirmView setTextCancel(String text)
-    {
-        if (TextUtils.isEmpty(text))
-        {
+    public DialogConfirmView setTextCancel(String text) {
+        if (TextUtils.isEmpty(text)) {
             tv_cancel.setVisibility(View.GONE);
-        } else
-        {
+        } else {
             tv_cancel.setVisibility(View.VISIBLE);
             tv_cancel.setText(text);
         }
@@ -150,45 +129,38 @@ public class HDialogConfirmView extends BaseDialogView implements DialogConfirmV
     }
 
     @Override
-    public DialogConfirmView setTextColorTitle(int color)
-    {
+    public DialogConfirmView setTextColorTitle(int color) {
         tv_title.setTextColor(color);
         return this;
     }
 
     @Override
-    public DialogConfirmView setTextColorContent(int color)
-    {
+    public DialogConfirmView setTextColorContent(int color) {
         tv_content.setTextColor(color);
         return this;
     }
 
     @Override
-    public DialogConfirmView setTextColorConfirm(int color)
-    {
+    public DialogConfirmView setTextColorConfirm(int color) {
         tv_confirm.setTextColor(color);
         return this;
     }
 
     @Override
-    public DialogConfirmView setTextColorCancel(int color)
-    {
+    public DialogConfirmView setTextColorCancel(int color) {
         tv_cancel.setTextColor(color);
         return this;
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         super.onClick(v);
-        if (v == tv_confirm)
-        {
+        if (v == tv_confirm) {
             if (mCallback != null)
                 mCallback.onClickConfirm(v, this);
             else
                 dismiss();
-        } else if (v == tv_cancel)
-        {
+        } else if (v == tv_cancel) {
             if (mCallback != null)
                 mCallback.onClickCancel(v, this);
             else
@@ -196,17 +168,13 @@ public class HDialogConfirmView extends BaseDialogView implements DialogConfirmV
         }
     }
 
-    protected void changeBottomButtonIfNeed()
-    {
-        if (tv_cancel.getVisibility() == View.VISIBLE && tv_confirm.getVisibility() == View.VISIBLE)
-        {
+    protected void changeBottomButtonIfNeed() {
+        if (tv_cancel.getVisibility() == View.VISIBLE && tv_confirm.getVisibility() == View.VISIBLE) {
             setBackgroundDrawable(tv_cancel, getContext().getResources().getDrawable(R.drawable.lib_dialogview_sel_bg_button_bottom_left));
             setBackgroundDrawable(tv_confirm, getContext().getResources().getDrawable(R.drawable.lib_dialogview_sel_bg_button_bottom_right));
-        } else if (tv_cancel.getVisibility() == View.VISIBLE)
-        {
+        } else if (tv_cancel.getVisibility() == View.VISIBLE) {
             setBackgroundDrawable(tv_cancel, getContext().getResources().getDrawable(R.drawable.lib_dialogview_sel_bg_button_bottom_single));
-        } else if (tv_confirm.getVisibility() == View.VISIBLE)
-        {
+        } else if (tv_confirm.getVisibility() == View.VISIBLE) {
             setBackgroundDrawable(tv_confirm, getContext().getResources().getDrawable(R.drawable.lib_dialogview_sel_bg_button_bottom_single));
         }
     }

@@ -2,8 +2,7 @@ package com.zzh.lib.dialog;
 
 import android.view.View;
 
-public interface DialogConfirmView extends DialogView
-{
+public interface DialogConfirmView extends DialogView {
     /**
      * 设置自定义View，替换掉中间内容部分的布局
      *
@@ -92,16 +91,14 @@ public interface DialogConfirmView extends DialogView
      */
     DialogConfirmView setTextColorConfirm(int color);
 
-    abstract class Callback
-    {
+    abstract class Callback {
         /**
          * 取消按钮被点击
          *
          * @param v
          * @param view
          */
-        public void onClickCancel(View v, DialogConfirmView view)
-        {
+        public void onClickCancel(View v, DialogConfirmView view) {
             view.dismiss();
         }
 
@@ -111,8 +108,7 @@ public interface DialogConfirmView extends DialogView
          * @param v
          * @param view
          */
-        public void onClickConfirm(View v, DialogConfirmView view)
-        {
+        public void onClickConfirm(View v, DialogConfirmView view) {
             view.dismiss();
         }
     }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="文章千古事，得失寸心知。作者皆殊列，名声岂浪垂。
+骚人嗟不见，汉道盛于斯。前辈飞腾入，馀波绮丽为。
+后贤兼旧列，历代各清规。法自儒家有，心从弱岁疲。
+永怀江左逸，多病邺中奇。騄骥皆良马，骐驎带好儿。
+车轮徒已斫，堂构惜仍亏。漫作潜夫论，虚传幼妇碑。
+缘情慰漂荡，抱疾屡迁移。经济惭长策，飞栖假一枝。"
+            android:textSize="26sp" />
+    </android.support.v4.widget.NestedScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDark"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+
+</LinearLayout>

@@ -5,8 +5,7 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-public interface DialogMenuView extends DialogView
-{
+public interface DialogMenuView extends DialogView {
     /**
      * 设置标题文字
      *
@@ -55,8 +54,7 @@ public interface DialogMenuView extends DialogView
      */
     DialogMenuView setAdapter(BaseAdapter adapter);
 
-    abstract class Callback
-    {
+    abstract class Callback {
         /**
          * item项被点击
          *
@@ -64,8 +62,7 @@ public interface DialogMenuView extends DialogView
          * @param index
          * @param view
          */
-        public void onClickItem(View v, int index, DialogMenuView view)
-        {
+        public void onClickItem(View v, int index, DialogMenuView view) {
             view.dismiss();
         }
 
@@ -75,8 +72,7 @@ public interface DialogMenuView extends DialogView
          * @param v
          * @param view
          */
-        public void onClickCancel(View v, DialogMenuView view)
-        {
+        public void onClickCancel(View v, DialogMenuView view) {
             view.dismiss();
         }
     }

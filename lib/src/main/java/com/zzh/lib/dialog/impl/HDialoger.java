@@ -37,8 +37,7 @@ import com.zzh.lib.dialog.animator.SlideTopBottomCreator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class HDialoger implements Dialoger
-{
+public class HDialoger implements Dialoger {
     private final Activity mActivity;
     private final int mThemeResId;
 
@@ -70,13 +69,11 @@ public class HDialoger implements Dialoger
 
     private boolean mIsDebug;
 
-    public HDialoger(Activity activity)
-    {
+    public HDialoger(Activity activity) {
         this(activity, R.style.lib_dialoger_default);
     }
 
-    public HDialoger(Activity activity, int themeResId)
-    {
+    public HDialoger(Activity activity, int themeResId) {
         if (activity == null)
             throw new NullPointerException("activity is null");
 
@@ -96,66 +93,55 @@ public class HDialoger implements Dialoger
     }
 
     @Override
-    public void setDebug(boolean debug)
-    {
+    public void setDebug(boolean debug) {
         mIsDebug = debug;
     }
 
     @Override
-    public Context getContext()
-    {
+    public Context getContext() {
         return mActivity;
     }
 
     @Override
-    public Activity getOwnerActivity()
-    {
+    public Activity getOwnerActivity() {
         return mActivity;
     }
 
     @Override
-    public Window getWindow()
-    {
+    public Window getWindow() {
         return getDialog().getWindow();
     }
 
     @Override
-    public View getContentView()
-    {
+    public View getContentView() {
         return mContentView;
     }
 
     @Override
-    public void setContentView(int layoutId)
-    {
+    public void setContentView(int layoutId) {
         final View view = LayoutInflater.from(mActivity).inflate(layoutId, mContainerView, false);
         setContentView(view);
     }
 
     @Override
-    public void setContentView(View view)
-    {
+    public void setContentView(View view) {
         setDialogerView(view);
     }
 
-    private void setDialogerView(View view)
-    {
+    private void setDialogerView(View view) {
         final View old = mContentView;
-        if (old != view)
-        {
+        if (old != view) {
             mContentView = view;
 
             if (old != null)
                 mContainerView.removeView(old);
 
-            if (view != null)
-            {
+            if (view != null) {
                 final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
 
                 final ViewGroup.LayoutParams params = view.getLayoutParams();
-                if (params != null)
-                {
+                if (params != null) {
                     p.width = params.width;
                     p.height = params.height;
                 }
@@ -170,13 +156,11 @@ public class HDialoger implements Dialoger
         }
     }
 
-    protected void onContentViewChanged(View oldView, View contentView)
-    {
+    protected void onContentViewChanged(View oldView, View contentView) {
     }
 
     @Override
-    public void setBackgroundColor(int color)
-    {
+    public void setBackgroundColor(int color) {
         if (color <= 0)
             mBackgroundView.setBackgroundDrawable(null);
         else
@@ -184,14 +168,12 @@ public class HDialoger implements Dialoger
     }
 
     @Override
-    public void setShowStatusBar(Boolean show)
-    {
+    public void setShowStatusBar(Boolean show) {
         mShowStatusBar = show;
     }
 
     @Override
-    public <T extends View> T findViewById(int id)
-    {
+    public <T extends View> T findViewById(int id) {
         if (mContentView == null)
             return null;
 
@@ -199,14 +181,12 @@ public class HDialoger implements Dialoger
     }
 
     @Override
-    public void setCancelable(boolean cancel)
-    {
+    public void setCancelable(boolean cancel) {
         mCancelable = cancel;
     }
 
     @Override
-    public void setCanceledOnTouchOutside(boolean cancel)
-    {
+    public void setCanceledOnTouchOutside(boolean cancel) {
         if (cancel && !mCancelable)
             mCancelable = true;
 
@@ -214,20 +194,17 @@ public class HDialoger implements Dialoger
     }
 
     @Override
-    public void setOnDismissListener(OnDismissListener listener)
-    {
+    public void setOnDismissListener(OnDismissListener listener) {
         mOnDismissListener = listener;
     }
 
     @Override
-    public void setOnShowListener(OnShowListener listener)
-    {
+    public void setOnShowListener(OnShowListener listener) {
         mOnShowListener = listener;
     }
 
     @Override
-    public void addLifecycleCallback(LifecycleCallback callback)
-    {
+    public void addLifecycleCallback(LifecycleCallback callback) {
         if (callback == null)
             return;
 
@@ -241,8 +218,7 @@ public class HDialoger implements Dialoger
     }
 
     @Override
-    public void removeLifecycleCallback(LifecycleCallback callback)
-    {
+    public void removeLifecycleCallback(LifecycleCallback callback) {
         if (callback == null || mLifecycleCallbacks == null)
             return;
 
@@ -253,97 +229,79 @@ public class HDialoger implements Dialoger
     }
 
     @Override
-    public void setAnimatorCreator(AnimatorCreator creator)
-    {
+    public void setAnimatorCreator(AnimatorCreator creator) {
         mAnimatorCreator = creator;
         mIsAnimatorCreatorModifiedInternal = false;
     }
 
     @Override
-    public AnimatorCreator getAnimatorCreator()
-    {
+    public AnimatorCreator getAnimatorCreator() {
         return mAnimatorCreator;
     }
 
     @Override
-    public void setGravity(int gravity)
-    {
+    public void setGravity(int gravity) {
         mContainerView.setGravity(gravity);
     }
 
     @Override
-    public int getGravity()
-    {
+    public int getGravity() {
         return mGravity;
     }
 
     @Override
-    public void setPadding(int left, int top, int right, int bottom)
-    {
+    public void setPadding(int left, int top, int right, int bottom) {
         mContainerView.setPadding(left, top, right, bottom);
     }
 
     @Override
-    public int getPaddingLeft()
-    {
+    public int getPaddingLeft() {
         return mContainerView.getPaddingLeft();
     }
 
     @Override
-    public int getPaddingTop()
-    {
+    public int getPaddingTop() {
         return mContainerView.getPaddingTop();
     }
 
     @Override
-    public int getPaddingRight()
-    {
+    public int getPaddingRight() {
         return mContainerView.getPaddingRight();
     }
 
     @Override
-    public int getPaddingBottom()
-    {
+    public int getPaddingBottom() {
         return mContainerView.getPaddingBottom();
     }
 
     @Override
-    public boolean isShowing()
-    {
+    public boolean isShowing() {
         return mState == State.Shown;
     }
 
     @Override
-    public void show()
-    {
-        if (Looper.myLooper() == Looper.getMainLooper())
-        {
+    public void show() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
             mShowRunnable.run();
-        } else
-        {
+        } else {
             getDialogerHandler().removeCallbacks(mShowRunnable);
             getDialogerHandler().post(mShowRunnable);
         }
     }
 
     @Override
-    public void dismiss()
-    {
-        if (Looper.myLooper() == Looper.getMainLooper())
-        {
+    public void dismiss() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
             mDismissRunnable.run();
-        } else
-        {
+        } else {
             getDialogerHandler().removeCallbacks(mDismissRunnable);
             getDialogerHandler().post(mDismissRunnable);
         }
     }
 
-    private final Runnable mShowRunnable = new Runnable()
-    {
+    private final Runnable mShowRunnable = new Runnable() {
         @Override
-        public void run()
-        {
+        public void run() {
             if (mState.isShowPart())
                 return;
 
@@ -355,8 +313,7 @@ public class HDialoger implements Dialoger
 
             setState(State.TryShow);
 
-            if (getAnimatorHandler().isHideAnimatorStarted())
-            {
+            if (getAnimatorHandler().isHideAnimatorStarted()) {
                 if (mIsDebug)
                     Log.i(Dialoger.class.getSimpleName(), "cancel HideAnimator before show");
 
@@ -368,11 +325,9 @@ public class HDialoger implements Dialoger
         }
     };
 
-    private final Runnable mDismissRunnable = new Runnable()
-    {
+    private final Runnable mDismissRunnable = new Runnable() {
         @Override
-        public void run()
-        {
+        public void run() {
             if (mState.isDismissPart())
                 return;
 
@@ -381,8 +336,7 @@ public class HDialoger implements Dialoger
 
             setState(State.TryDismiss);
 
-            if (getAnimatorHandler().isShowAnimatorStarted())
-            {
+            if (getAnimatorHandler().isShowAnimatorStarted()) {
                 if (mIsDebug)
                     Log.i(Dialoger.class.getSimpleName(), "cancel ShowAnimator before dismiss");
 
@@ -391,47 +345,38 @@ public class HDialoger implements Dialoger
 
             setLockDialoger(true);
 
-            if (mActivity.isFinishing())
-            {
+            if (mActivity.isFinishing()) {
                 removeDialogerView(false);
                 return;
             }
 
             getAnimatorHandler().setHideAnimator(createAnimator(false));
-            if (getAnimatorHandler().startHideAnimator())
-            {
+            if (getAnimatorHandler().startHideAnimator()) {
                 // 等待动画结束后让窗口消失
-            } else
-            {
+            } else {
                 removeDialogerView(false);
             }
         }
     };
 
-    private void setLockDialoger(boolean lock)
-    {
-        if (mLockDialoger != lock)
-        {
+    private void setLockDialoger(boolean lock) {
+        if (mLockDialoger != lock) {
             mLockDialoger = lock;
             if (mIsDebug)
                 Log.i(Dialoger.class.getSimpleName(), "setLockDialoger:" + lock);
         }
     }
 
-    private void setTryStartShowAnimator(boolean tryShow)
-    {
-        if (mTryStartShowAnimator != tryShow)
-        {
+    private void setTryStartShowAnimator(boolean tryShow) {
+        if (mTryStartShowAnimator != tryShow) {
             mTryStartShowAnimator = tryShow;
             if (mIsDebug)
                 Log.i(Dialoger.class.getSimpleName(), "setTryStartShowAnimator:" + tryShow);
         }
     }
 
-    private void startShowAnimator()
-    {
-        if (mTryStartShowAnimator)
-        {
+    private void startShowAnimator() {
+        if (mTryStartShowAnimator) {
             if (mIsDebug)
                 Log.i(Dialoger.class.getSimpleName(), "startShowAnimator");
 
@@ -441,73 +386,61 @@ public class HDialoger implements Dialoger
         }
     }
 
-    private void setState(State state)
-    {
+    private void setState(State state) {
         if (state == null)
             throw new IllegalArgumentException("state is null");
 
-        if (mState != state)
-        {
+        if (mState != state) {
             if (mIsDebug)
                 Log.e(Dialoger.class.getSimpleName(), "setState:" + state);
 
             mState = state;
 
-            if (state.isDismissPart())
-            {
+            if (state.isDismissPart()) {
                 setTryStartShowAnimator(false);
             }
         }
     }
 
     @Override
-    public void startDismissRunnable(long delay)
-    {
+    public void startDismissRunnable(long delay) {
         stopDismissRunnable();
         getDialogerHandler().postDelayed(mDelayedDismissRunnable, delay);
     }
 
     @Override
-    public void stopDismissRunnable()
-    {
+    public void stopDismissRunnable() {
         getDialogerHandler().removeCallbacks(mDelayedDismissRunnable);
     }
 
     private Handler mDialogerHandler;
 
-    private Handler getDialogerHandler()
-    {
+    private Handler getDialogerHandler() {
         if (mDialogerHandler == null)
             mDialogerHandler = new Handler(Looper.getMainLooper());
         return mDialogerHandler;
     }
 
-    private final Runnable mDelayedDismissRunnable = new Runnable()
-    {
+    private final Runnable mDelayedDismissRunnable = new Runnable() {
         @Override
-        public void run()
-        {
+        public void run() {
             dismiss();
         }
     };
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         return false;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         return false;
     }
 
     @Override
-    public void onBackPressed()
-    {
-        if (mCancelable)
-        {
+    public void onBackPressed() {
+        if (mCancelable) {
             if (mIsDebug)
                 Log.i(Dialoger.class.getSimpleName(), "onBackPressed try dismiss ");
 
@@ -515,12 +448,9 @@ public class HDialoger implements Dialoger
         }
     }
 
-    private void setDefaultConfigBeforeShow()
-    {
-        if (mAnimatorCreator == null)
-        {
-            switch (mGravity)
-            {
+    private void setDefaultConfigBeforeShow() {
+        if (mAnimatorCreator == null) {
+            switch (mGravity) {
                 case Gravity.CENTER:
                     setAnimatorCreator(new AlphaCreator());
                     mIsAnimatorCreatorModifiedInternal = true;
@@ -549,58 +479,48 @@ public class HDialoger implements Dialoger
         }
     }
 
-    private HVisibilityAnimatorHandler getAnimatorHandler()
-    {
-        if (mAnimatorHandler == null)
-        {
+    private HVisibilityAnimatorHandler getAnimatorHandler() {
+        if (mAnimatorHandler == null) {
             mAnimatorHandler = new HVisibilityAnimatorHandler();
-            mAnimatorHandler.setShowAnimatorListener(new AnimatorListenerAdapter()
-            {
+            mAnimatorHandler.setShowAnimatorListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationStart(Animator animation)
-                {
+                public void onAnimationStart(Animator animation) {
                     super.onAnimationStart(animation);
                     if (mIsDebug)
                         Log.i(Dialoger.class.getSimpleName(), "show onAnimationStart ");
                 }
 
                 @Override
-                public void onAnimationCancel(Animator animation)
-                {
+                public void onAnimationCancel(Animator animation) {
                     super.onAnimationCancel(animation);
                     if (mIsDebug)
                         Log.i(Dialoger.class.getSimpleName(), "show onAnimationCancel ");
                 }
 
                 @Override
-                public void onAnimationEnd(Animator animation)
-                {
+                public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     if (mIsDebug)
                         Log.i(Dialoger.class.getSimpleName(), "show onAnimationEnd ");
                 }
             });
-            mAnimatorHandler.setHideAnimatorListener(new AnimatorListenerAdapter()
-            {
+            mAnimatorHandler.setHideAnimatorListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationStart(Animator animation)
-                {
+                public void onAnimationStart(Animator animation) {
                     super.onAnimationStart(animation);
                     if (mIsDebug)
                         Log.i(Dialoger.class.getSimpleName(), "dismiss onAnimationStart ");
                 }
 
                 @Override
-                public void onAnimationCancel(Animator animation)
-                {
+                public void onAnimationCancel(Animator animation) {
                     super.onAnimationCancel(animation);
                     if (mIsDebug)
                         Log.i(Dialoger.class.getSimpleName(), "dismiss onAnimationCancel ");
                 }
 
                 @Override
-                public void onAnimationEnd(Animator animation)
-                {
+                public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     if (mIsDebug)
                         Log.i(Dialoger.class.getSimpleName(), "dismiss onAnimationEnd ");
@@ -612,46 +532,37 @@ public class HDialoger implements Dialoger
         return mAnimatorHandler;
     }
 
-    private AnimatorCreator getBackgroundViewAnimatorCreator()
-    {
-        if (mBackgroundViewAnimatorCreator == null)
-        {
-            mBackgroundViewAnimatorCreator = new ObjectAnimatorCreator()
-            {
+    private AnimatorCreator getBackgroundViewAnimatorCreator() {
+        if (mBackgroundViewAnimatorCreator == null) {
+            mBackgroundViewAnimatorCreator = new ObjectAnimatorCreator() {
                 @Override
-                protected String getPropertyName()
-                {
+                protected String getPropertyName() {
                     return View.ALPHA.getName();
                 }
 
                 @Override
-                protected float getValueHidden(View view)
-                {
+                protected float getValueHidden(View view) {
                     return 0.0f;
                 }
 
                 @Override
-                protected float getValueShown(View view)
-                {
+                protected float getValueShown(View view) {
                     return 1.0f;
                 }
 
                 @Override
-                protected float getValueCurrent(View view)
-                {
+                protected float getValueCurrent(View view) {
                     return view.getAlpha();
                 }
 
                 @Override
-                protected void onAnimationStart(boolean show, View view)
-                {
+                protected void onAnimationStart(boolean show, View view) {
                     super.onAnimationStart(show, view);
                     view.setVisibility(View.VISIBLE);
                 }
 
                 @Override
-                protected void onAnimationEnd(boolean show, View view)
-                {
+                protected void onAnimationEnd(boolean show, View view) {
                     super.onAnimationEnd(show, view);
                     if (!show)
                         view.setVisibility(View.INVISIBLE);
@@ -661,8 +572,7 @@ public class HDialoger implements Dialoger
         return mBackgroundViewAnimatorCreator;
     }
 
-    private Animator createAnimator(boolean show)
-    {
+    private Animator createAnimator(boolean show) {
         Animator animator = null;
 
         final Animator animatorBackground = (mBackgroundView.getBackground() == null) ?
@@ -671,8 +581,7 @@ public class HDialoger implements Dialoger
         final Animator animatorContent = (mAnimatorCreator == null || mContentView == null) ?
                 null : mAnimatorCreator.createAnimator(show, mContentView);
 
-        if (animatorBackground != null && animatorContent != null)
-        {
+        if (animatorBackground != null && animatorContent != null) {
             final long duration = getAnimatorDuration(animatorContent);
             if (duration < 0)
                 throw new RuntimeException("Illegal duration:" + duration);
@@ -681,11 +590,9 @@ public class HDialoger implements Dialoger
             final AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.play(animatorBackground).with(animatorContent);
             animator = animatorSet;
-        } else if (animatorBackground != null)
-        {
+        } else if (animatorBackground != null) {
             animator = animatorBackground;
-        } else if (animatorContent != null)
-        {
+        } else if (animatorContent != null) {
             animator = animatorContent;
         }
 
@@ -695,8 +602,7 @@ public class HDialoger implements Dialoger
         return animator;
     }
 
-    private void removeDialogerView(boolean removeByHideAnimator)
-    {
+    private void removeDialogerView(boolean removeByHideAnimator) {
         if (mIsDebug)
             Log.e(Dialoger.class.getSimpleName(), "removeDialogerView by hideAnimator:" + removeByHideAnimator);
 
@@ -704,31 +610,26 @@ public class HDialoger implements Dialoger
         setState(State.Dismissed);
     }
 
-    protected void onStart()
-    {
+    protected void onStart() {
     }
 
-    protected void onStop()
-    {
+    protected void onStop() {
     }
 
     private SimpleTargetDialoger mTargetDialoger;
 
     @Override
-    public TargetDialoger target()
-    {
+    public TargetDialoger target() {
         if (mTargetDialoger == null)
             mTargetDialoger = new SimpleTargetDialoger(this);
         return mTargetDialoger;
     }
 
-    private final class InternalDialogerView extends FrameLayout
-    {
+    private final class InternalDialogerView extends FrameLayout {
         private final View mBackgroundView;
         private final LinearLayout mContainerView;
 
-        public InternalDialogerView(Context context)
-        {
+        public InternalDialogerView(Context context) {
             super(context);
 
             mBackgroundView = new InternalBackgroundView(context);
@@ -739,31 +640,27 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        public void onViewAdded(View child)
-        {
+        public void onViewAdded(View child) {
             super.onViewAdded(child);
             if (child != mBackgroundView && child != mContainerView)
                 throw new RuntimeException("you can not add view to dialoger view");
         }
 
         @Override
-        public void onViewRemoved(View child)
-        {
+        public void onViewRemoved(View child) {
             super.onViewRemoved(child);
             if (child == mBackgroundView || child == mContainerView)
                 throw new RuntimeException("you can not remove dialoger child");
         }
 
         @Override
-        public void setVisibility(int visibility)
-        {
+        public void setVisibility(int visibility) {
             if (visibility == GONE || visibility == INVISIBLE)
                 throw new IllegalArgumentException("you can not hide dialoger");
             super.setVisibility(visibility);
         }
 
-        private boolean isViewUnder(View view, int x, int y)
-        {
+        private boolean isViewUnder(View view, int x, int y) {
             if (view == null)
                 return false;
 
@@ -772,25 +669,20 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        public boolean onInterceptTouchEvent(MotionEvent ev)
-        {
+        public boolean onInterceptTouchEvent(MotionEvent ev) {
             if (mLockDialoger)
                 return true;
             return super.onInterceptTouchEvent(ev);
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event)
-        {
+        public boolean onTouchEvent(MotionEvent event) {
             if (mLockDialoger)
                 return false;
 
-            if (event.getAction() == MotionEvent.ACTION_DOWN)
-            {
-                if (!isViewUnder(mContentView, (int) event.getX(), (int) event.getY()))
-                {
-                    if (mCanceledOnTouchOutside && mCancelable)
-                    {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (!isViewUnder(mContentView, (int) event.getX(), (int) event.getY())) {
+                    if (mCanceledOnTouchOutside && mCancelable) {
                         if (mIsDebug)
                             Log.i(Dialoger.class.getSimpleName(), "touch outside try dismiss ");
 
@@ -808,42 +700,35 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        protected void onAttachedToWindow()
-        {
+        protected void onAttachedToWindow() {
             super.onAttachedToWindow();
             if (mIsDebug)
                 Log.i(Dialoger.class.getSimpleName(), "onAttachedToWindow");
         }
 
         @Override
-        protected void onDetachedFromWindow()
-        {
+        protected void onDetachedFromWindow() {
             super.onDetachedFromWindow();
             if (mIsDebug)
                 Log.i(Dialoger.class.getSimpleName(), "onDetachedFromWindow");
         }
     }
 
-    private final class InternalContainerView extends LinearLayout
-    {
-        public InternalContainerView(Context context)
-        {
+    private final class InternalContainerView extends LinearLayout {
+        public InternalContainerView(Context context) {
             super(context);
         }
 
         @Override
-        public void setGravity(int gravity)
-        {
-            if (mGravity != gravity)
-            {
+        public void setGravity(int gravity) {
+            if (mGravity != gravity) {
                 mGravity = gravity;
                 super.setGravity(gravity);
             }
         }
 
         @Override
-        public void setPadding(int left, int top, int right, int bottom)
-        {
+        public void setPadding(int left, int top, int right, int bottom) {
             if (left < 0)
                 left = getPaddingLeft();
             if (top < 0)
@@ -854,23 +739,20 @@ public class HDialoger implements Dialoger
                 bottom = getPaddingBottom();
 
             if (left != getPaddingLeft() || top != getPaddingTop()
-                    || right != getPaddingRight() || bottom != getPaddingBottom())
-            {
+                    || right != getPaddingRight() || bottom != getPaddingBottom()) {
                 super.setPadding(left, top, right, bottom);
             }
         }
 
         @Override
-        public void setVisibility(int visibility)
-        {
+        public void setVisibility(int visibility) {
             if (visibility == GONE || visibility == INVISIBLE)
                 throw new IllegalArgumentException("you can not hide container");
             super.setVisibility(visibility);
         }
 
         @Override
-        public void onViewAdded(View child)
-        {
+        public void onViewAdded(View child) {
             super.onViewAdded(child);
             if (child != mContentView)
                 throw new RuntimeException("you can not add view to container");
@@ -880,11 +762,9 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        public void onViewRemoved(View child)
-        {
+        public void onViewRemoved(View child) {
             super.onViewRemoved(child);
-            if (child == mContentView)
-            {
+            if (child == mContentView) {
                 // 外部直接移除内容view的话，关闭窗口
                 dismiss();
             }
@@ -894,8 +774,7 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        protected void onLayout(boolean changed, int l, int t, int r, int b)
-        {
+        protected void onLayout(boolean changed, int l, int t, int r, int b) {
             super.onLayout(changed, l, t, r, b);
             if (changed)
                 HDialoger.this.checkMatchLayoutParams(this);
@@ -904,8 +783,7 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        protected void onAttachedToWindow()
-        {
+        protected void onAttachedToWindow() {
             super.onAttachedToWindow();
             setTryStartShowAnimator(true);
 
@@ -914,61 +792,49 @@ public class HDialoger implements Dialoger
         }
     }
 
-    private final class InternalBackgroundView extends View
-    {
-        public InternalBackgroundView(Context context)
-        {
+    private final class InternalBackgroundView extends View {
+        public InternalBackgroundView(Context context) {
             super(context);
         }
 
         @Override
-        protected void onLayout(boolean changed, int left, int top, int right, int bottom)
-        {
+        protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
             super.onLayout(changed, left, top, right, bottom);
             if (changed)
                 HDialoger.this.checkMatchLayoutParams(this);
         }
     }
 
-    private void checkMatchLayoutParams(View view)
-    {
+    private void checkMatchLayoutParams(View view) {
         final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
         if (params.width != ViewGroup.LayoutParams.MATCH_PARENT
-                || params.height != ViewGroup.LayoutParams.MATCH_PARENT)
-        {
+                || params.height != ViewGroup.LayoutParams.MATCH_PARENT) {
             throw new RuntimeException("you can not change view's width or height");
         }
 
         if (params.leftMargin != 0 || params.rightMargin != 0
-                || params.topMargin != 0 || params.bottomMargin != 0)
-        {
+                || params.topMargin != 0 || params.bottomMargin != 0) {
             throw new RuntimeException("you can not set margin to view");
         }
     }
 
     private Dialog mDialog;
 
-    private Dialog getDialog()
-    {
-        if (mDialog == null)
-        {
+    private Dialog getDialog() {
+        if (mDialog == null) {
             mDialog = new InternalDialog(mActivity, mThemeResId);
             mDialog.setCanceledOnTouchOutside(false);
             mDialog.setCancelable(false);
-            mDialog.setOnShowListener(new DialogInterface.OnShowListener()
-            {
+            mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
-                public void onShow(DialogInterface dialog)
-                {
+                public void onShow(DialogInterface dialog) {
                     if (mOnShowListener != null)
                         mOnShowListener.onShow(HDialoger.this);
                 }
             });
-            mDialog.setOnDismissListener(new DialogInterface.OnDismissListener()
-            {
+            mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
-                public void onDismiss(DialogInterface dialog)
-                {
+                public void onDismiss(DialogInterface dialog) {
                     if (mOnDismissListener != null)
                         mOnDismissListener.onDismiss(HDialoger.this);
                 }
@@ -980,22 +846,18 @@ public class HDialoger implements Dialoger
         return mDialog;
     }
 
-    private final class InternalDialog extends Dialog
-    {
-        public InternalDialog(Context context, int themeResId)
-        {
+    private final class InternalDialog extends Dialog {
+        public InternalDialog(Context context, int themeResId) {
             super(context, themeResId);
         }
 
-        private void setDefaultParams()
-        {
+        private void setDefaultParams() {
             final int targetWidth = ViewGroup.LayoutParams.MATCH_PARENT;
             final int targetHeight = ViewGroup.LayoutParams.MATCH_PARENT;
 
             final WindowManager.LayoutParams params = getWindow().getAttributes();
             if (params.width != targetWidth || params.height != targetHeight
-                    || params.horizontalMargin != 0 || params.verticalMargin != 0)
-            {
+                    || params.horizontalMargin != 0 || params.verticalMargin != 0) {
                 params.width = targetWidth;
                 params.height = targetHeight;
                 params.horizontalMargin = 0;
@@ -1005,8 +867,7 @@ public class HDialoger implements Dialoger
 
             final View view = getWindow().getDecorView();
             if (view.getPaddingLeft() != 0 || view.getPaddingTop() != 0
-                    || view.getPaddingRight() != 0 || view.getPaddingBottom() != 0)
-            {
+                    || view.getPaddingRight() != 0 || view.getPaddingBottom() != 0) {
                 view.setPadding(0, 0, 0, 0);
             }
 
@@ -1018,8 +879,7 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        protected void onStart()
-        {
+        protected void onStart() {
             super.onStart();
             if (mIsDebug)
                 Log.i(Dialoger.class.getSimpleName(), "onStart");
@@ -1028,10 +888,8 @@ public class HDialoger implements Dialoger
             getActivityLifecycleCallbacks().register(true);
 
             HDialoger.this.onStart();
-            if (mLifecycleCallbacks != null)
-            {
-                for (LifecycleCallback item : mLifecycleCallbacks)
-                {
+            if (mLifecycleCallbacks != null) {
+                for (LifecycleCallback item : mLifecycleCallbacks) {
                     item.onStart(HDialoger.this);
                 }
             }
@@ -1043,8 +901,7 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        protected void onStop()
-        {
+        protected void onStop() {
             super.onStop();
             if (mIsDebug)
                 Log.i(Dialoger.class.getSimpleName(), "onStop");
@@ -1055,10 +912,8 @@ public class HDialoger implements Dialoger
             stopDismissRunnable();
 
             HDialoger.this.onStop();
-            if (mLifecycleCallbacks != null)
-            {
-                for (LifecycleCallback item : mLifecycleCallbacks)
-                {
+            if (mLifecycleCallbacks != null) {
+                for (LifecycleCallback item : mLifecycleCallbacks) {
                     item.onStop(HDialoger.this);
                 }
             }
@@ -1068,8 +923,7 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        public boolean onKeyDown(int keyCode, KeyEvent event)
-        {
+        public boolean onKeyDown(int keyCode, KeyEvent event) {
             if (mLockDialoger)
                 return false;
 
@@ -1080,25 +934,21 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        public void onBackPressed()
-        {
+        public void onBackPressed() {
             HDialoger.this.onBackPressed();
         }
     }
 
     private InternalActivityLifecycleCallbacks mActivityLifecycleCallbacks;
 
-    private InternalActivityLifecycleCallbacks getActivityLifecycleCallbacks()
-    {
+    private InternalActivityLifecycleCallbacks getActivityLifecycleCallbacks() {
         if (mActivityLifecycleCallbacks == null)
             mActivityLifecycleCallbacks = new InternalActivityLifecycleCallbacks();
         return mActivityLifecycleCallbacks;
     }
 
-    private final class InternalActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks
-    {
-        public void register(boolean register)
-        {
+    private final class InternalActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
+        public void register(boolean register) {
             final Application application = mActivity.getApplication();
             application.unregisterActivityLifecycleCallbacks(this);
             if (register)
@@ -1106,40 +956,32 @@ public class HDialoger implements Dialoger
         }
 
         @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState)
-        {
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         }
 
         @Override
-        public void onActivityStarted(Activity activity)
-        {
+        public void onActivityStarted(Activity activity) {
         }
 
         @Override
-        public void onActivityResumed(Activity activity)
-        {
+        public void onActivityResumed(Activity activity) {
         }
 
         @Override
-        public void onActivityPaused(Activity activity)
-        {
+        public void onActivityPaused(Activity activity) {
         }
 
         @Override
-        public void onActivityStopped(Activity activity)
-        {
+        public void onActivityStopped(Activity activity) {
         }
 
         @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState)
-        {
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
         }
 
         @Override
-        public void onActivityDestroyed(Activity activity)
-        {
-            if (activity == mActivity)
-            {
+        public void onActivityDestroyed(Activity activity) {
+            if (activity == mActivity) {
                 if (mIsDebug)
                     Log.e(Dialoger.class.getSimpleName(), "onActivityDestroyed try remove dialoger");
 
@@ -1154,8 +996,7 @@ public class HDialoger implements Dialoger
         }
     }
 
-    private enum State
-    {
+    private enum State {
         TryShow,
         OnStart,
         Shown,
@@ -1164,27 +1005,21 @@ public class HDialoger implements Dialoger
         OnStop,
         Dismissed;
 
-        public boolean isShowPart()
-        {
+        public boolean isShowPart() {
             return this == Shown || this == OnStart || this == TryShow;
         }
 
-        public boolean isDismissPart()
-        {
+        public boolean isDismissPart() {
             return this == Dismissed || this == OnStop || this == TryDismiss;
         }
     }
 
-    private static long getAnimatorDuration(Animator animator)
-    {
+    private static long getAnimatorDuration(Animator animator) {
         long duration = animator.getDuration();
-        if (duration < 0)
-        {
-            if (animator instanceof AnimatorSet)
-            {
+        if (duration < 0) {
+            if (animator instanceof AnimatorSet) {
                 final List<Animator> list = ((AnimatorSet) animator).getChildAnimations();
-                for (Animator item : list)
-                {
+                for (Animator item : list) {
                     final long durationItem = getAnimatorDuration(item);
                     if (durationItem > duration)
                         duration = durationItem;
@@ -1194,8 +1029,7 @@ public class HDialoger implements Dialoger
         return duration;
     }
 
-    private static boolean isFullScreen(Window window)
-    {
+    private static boolean isFullScreen(Window window) {
         if (window == null)
             return false;
 
