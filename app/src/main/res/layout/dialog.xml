@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -19,17 +19,18 @@
 车轮徒已斫，堂构惜仍亏。漫作潜夫论，虚传幼妇碑。
 缘情慰漂荡，抱疾屡迁移。经济惭长策，飞栖假一枝。"
             android:textSize="26sp" />
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/colorPrimaryDark" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
 
 </LinearLayout>
