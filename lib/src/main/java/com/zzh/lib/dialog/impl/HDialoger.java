@@ -68,6 +68,7 @@ public class HDialoger implements Dialoger {
     private boolean mIsAnimatorCreatorModifiedInternal;
 
     private boolean mIsDebug;
+    private boolean mIsBackgroundDim;
 
     public HDialoger(Activity activity) {
         this(activity, R.style.lib_dialoger_default);
@@ -165,6 +166,18 @@ public class HDialoger implements Dialoger {
             mBackgroundView.setBackgroundDrawable(null);
         else
             mBackgroundView.setBackgroundColor(color);
+    }
+
+    public void setBackgroundDim(boolean backgroundDim) {
+        if (mIsBackgroundDim != backgroundDim) {
+            mIsBackgroundDim = backgroundDim;
+            if (backgroundDim) {
+                final int color = mActivity.getResources().getColor(R.color.zh_dialog_background_dim);
+                mBackgroundView.setBackgroundColor(color);
+            } else {
+                mBackgroundView.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
     }
 
     @Override
@@ -319,7 +332,6 @@ public class HDialoger implements Dialoger {
 
                 getAnimatorHandler().cancelHideAnimator();
             }
-
             getDialog().show();
             setState(State.Shown);
         }
@@ -846,6 +858,44 @@ public class HDialoger implements Dialoger {
         return mDialog;
     }
 
+    private boolean shouldTransparentStatusBarForBackgroundDim() {
+        if (mIsBackgroundDim) {
+            if (!isContentHeightMatchParent()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 内容View的高度是否为{@link ViewGroup.LayoutParams#MATCH_PARENT}
+     *
+     * @return
+     */
+    private boolean isContentHeightMatchParent() {
+        if (mContentView == null)
+            return false;
+
+        final ViewGroup.LayoutParams params = mContentView.getLayoutParams();
+        if (params == null)
+            return false;
+
+        if (params.height == ViewGroup.LayoutParams.WRAP_CONTENT)
+            return false;
+
+        if (params.height == ViewGroup.LayoutParams.MATCH_PARENT)
+            return true;
+
+        if (params.height == getDisplayHeight(getContext()))
+            return true;
+
+        return false;
+    }
+
+    private static int getDisplayHeight(Context context) {
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
     private final class InternalDialog extends Dialog {
         public InternalDialog(Context context, int themeResId) {
             super(context, themeResId);
@@ -853,7 +903,17 @@ public class HDialoger implements Dialoger {
 
         private void setDefaultParams() {
             final int targetWidth = ViewGroup.LayoutParams.MATCH_PARENT;
-            final int targetHeight = ViewGroup.LayoutParams.MATCH_PARENT;
+            int targetHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+            if (shouldTransparentStatusBarForBackgroundDim())
+                HStatusBarUtils.setTransparent(this);
+
+            boolean setHeightPixels = false;
+            if (HStatusBarUtils.isContentExtension(HDialoger.this.getWindow()))
+                setHeightPixels = true;
+
+            if (setHeightPixels)
+                targetHeight = getDisplayHeight(getContext());
 
             final WindowManager.LayoutParams params = getWindow().getAttributes();
             if (params.width != targetWidth || params.height != targetHeight
@@ -870,12 +930,6 @@ public class HDialoger implements Dialoger {
                     || view.getPaddingRight() != 0 || view.getPaddingBottom() != 0) {
                 view.setPadding(0, 0, 0, 0);
             }
-
-            final boolean fullScreen = mShowStatusBar != null ? !mShowStatusBar : isFullScreen(mActivity.getWindow());
-            if (fullScreen)
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            else
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
         @Override

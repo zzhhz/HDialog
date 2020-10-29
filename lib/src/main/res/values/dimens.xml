@@ -3,5 +3,6 @@
     <dimen name="zh_load_dialog_size">50dp</dimen>
     <dimen name="zh_load_text_size">15sp</dimen>
     <color name="zh_load_text_color">#ffffff</color>
+    <color name="zh_dialog_background_dim">#ffffff</color>
     <dimen name="zh_load_text_margin_top">5dp</dimen>
 </resources>
