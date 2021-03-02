@@ -832,7 +832,7 @@ public class HDialoger implements Dialoger {
 
     private Dialog mDialog;
 
-    private Dialog getDialog() {
+    protected final Dialog getDialog() {
         if (mDialog == null) {
             mDialog = new InternalDialog(mActivity, mThemeResId);
             mDialog.setCanceledOnTouchOutside(false);
