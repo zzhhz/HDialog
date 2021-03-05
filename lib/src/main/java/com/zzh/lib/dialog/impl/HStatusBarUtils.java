@@ -9,15 +9,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-class HStatusBarUtils
-{
+class HStatusBarUtils {
     /**
      * 设置全透明
      *
      * @param dialog
      */
-    public static void setTransparent(Dialog dialog)
-    {
+    public static void setTransparent(Dialog dialog) {
         if (dialog == null)
             return;
 
@@ -29,10 +27,8 @@ class HStatusBarUtils
      *
      * @param window
      */
-    static void setTransparent(Window window)
-    {
-        if (Build.VERSION.SDK_INT >= 21)
-        {
+    static void setTransparent(Window window) {
+        if (Build.VERSION.SDK_INT >= 21) {
             int flag = window.getDecorView().getSystemUiVisibility();
             flag = addFlag(flag, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             window.getDecorView().setSystemUiVisibility(flag);
@@ -42,8 +38,7 @@ class HStatusBarUtils
 
             if (window.getStatusBarColor() != Color.TRANSPARENT)
                 window.setStatusBarColor(Color.TRANSPARENT);
-        } else if (Build.VERSION.SDK_INT >= 19)
-        {
+        } else if (Build.VERSION.SDK_INT >= 19) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
@@ -54,20 +49,16 @@ class HStatusBarUtils
      * @param window
      * @return
      */
-    public static boolean isContentExtension(Window window)
-    {
-        if (Build.VERSION.SDK_INT >= 21)
-        {
+    public static boolean isContentExtension(Window window) {
+        if (Build.VERSION.SDK_INT >= 21) {
             final int flags = window.getDecorView().getSystemUiVisibility();
             final boolean hasFullScreen = hasFlag(flags, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             return hasFullScreen;
-        } else if (Build.VERSION.SDK_INT >= 19)
-        {
+        } else if (Build.VERSION.SDK_INT >= 19) {
             final int flags = window.getAttributes().flags;
             final boolean hasTranslucentStatus = hasFlag(flags, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             return hasTranslucentStatus;
-        } else
-        {
+        } else {
             return false;
         }
     }
@@ -78,8 +69,7 @@ class HStatusBarUtils
      * @param window
      * @return
      */
-    public static boolean isBarVisible(Window window)
-    {
+    public static boolean isBarVisible(Window window) {
         final int flags = window.getAttributes().flags;
         return !hasFlag(flags, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
@@ -90,25 +80,21 @@ class HStatusBarUtils
      * @param context
      * @return
      */
-    public static int getBarHeight(Context context)
-    {
+    public static int getBarHeight(Context context) {
         final Resources resources = context.getResources();
         final int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resourceId == 0 ? 0 : resources.getDimensionPixelSize(resourceId);
     }
 
-    public static int addFlag(int original, int flag)
-    {
+    public static int addFlag(int original, int flag) {
         return original | flag;
     }
 
-    public static int clearFlag(int original, int flag)
-    {
+    public static int clearFlag(int original, int flag) {
         return original & (~flag);
     }
 
-    public static boolean hasFlag(int original, int flag)
-    {
+    public static boolean hasFlag(int original, int flag) {
         return (original & flag) == flag;
     }
 }

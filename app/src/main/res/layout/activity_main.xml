@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
@@ -12,5 +13,10 @@
         android:background="@color/colorPrimary"
         android:onClick="onClickView"
         android:text="Hello World!"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测"
+        android:onClick="onClickView1"/>
 
 </LinearLayout>

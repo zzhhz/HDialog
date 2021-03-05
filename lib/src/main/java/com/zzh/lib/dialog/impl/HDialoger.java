@@ -893,7 +893,8 @@ public class HDialoger implements Dialoger {
     }
 
     private static int getDisplayHeight(Context context) {
-        return context.getResources().getDisplayMetrics().heightPixels;
+        int heightPixels = context.getResources().getDisplayMetrics().heightPixels;
+        return heightPixels;
     }
 
     private final class InternalDialog extends Dialog {
@@ -903,7 +904,7 @@ public class HDialoger implements Dialoger {
 
         private void setDefaultParams() {
             final int targetWidth = ViewGroup.LayoutParams.MATCH_PARENT;
-            int targetHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
+            int targetHeight = ViewGroup.LayoutParams.MATCH_PARENT;
 
             if (shouldTransparentStatusBarForBackgroundDim())
                 HStatusBarUtils.setTransparent(this);

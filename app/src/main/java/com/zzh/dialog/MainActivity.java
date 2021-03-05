@@ -28,4 +28,9 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
         }
     }
+
+    public void onClickView1(View v) {
+        BindTipsDialog dialog = new BindTipsDialog(this);
+        dialog.show();
+    }
 }
