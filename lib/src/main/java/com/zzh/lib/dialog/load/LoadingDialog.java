@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -37,7 +38,7 @@ public class LoadingDialog implements FinishDrawListener {
 
     private LVCircularRing mLoadingView;
     private Dialog mLoadingDialog;
-    private LinearLayout layout;
+    private View layout;
     private TextView loadingText;
     private RightDiaView mSuccessView;
     private WrongDiaView mFailedView;
@@ -62,7 +63,7 @@ public class LoadingDialog implements FinishDrawListener {
         SPEED_FOUR,
     }
 
-    private OnFinshListener o;
+    private OnFinishListener o;
     private DismissListener d;
 
     public LoadingDialog(Context context) {
@@ -91,19 +92,22 @@ public class LoadingDialog implements FinishDrawListener {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 mContext = null;
-                if (d != null) d.dimiss();
+                if (d != null) d.dismiss();
             }
         });
+        int defaultLoadingDialogWidth = SizeUtils.getDefaultLoadingDialogWidth(mContext);
+        setLayoutSize(defaultLoadingDialogWidth, defaultLoadingDialogWidth);
         initStyle();
     }
 
     private void initView(View view) {
-        layout = (LinearLayout) view.findViewById(R.id.dialog_view);
+        layout = view.findViewById(R.id.dialog_view);
         mLoadingView = (LVCircularRing) view.findViewById(R.id.lv_circularring);
         loadingText = (TextView) view.findViewById(R.id.loading_text);
         mSuccessView = (RightDiaView) view.findViewById(R.id.rdv_right);
         mFailedView = (WrongDiaView) view.findViewById(R.id.wv_wrong);
         mCircleLoadView = (LoadCircleView) view.findViewById(R.id.lcv_circleload);
+
         initData();
     }
 
@@ -132,6 +136,15 @@ public class LoadingDialog implements FinishDrawListener {
             if (v.getVisibility() != View.GONE) {
                 v.setVisibility(View.GONE);
             }
+        }
+    }
+
+    public void setLayoutSize(int width, int height) {
+        ViewGroup.LayoutParams layoutParams = layout.getLayoutParams();
+        if (layoutParams != null) {
+            layoutParams.height = height;
+            layoutParams.width = width;
+            layout.setLayoutParams(layoutParams);
         }
     }
 
@@ -194,12 +207,14 @@ public class LoadingDialog implements FinishDrawListener {
         if (loadStyle == STYLE_RING) {
             mLoadingView.setVisibility(View.VISIBLE);
             mCircleLoadView.setVisibility(View.GONE);
+
             mLoadingDialog.show();
             mLoadingView.startAnim();
             Log.i("show", "style_ring");
         } else if (loadStyle == STYLE_LINE) {
             mCircleLoadView.setVisibility(View.VISIBLE);
             mLoadingView.setVisibility(View.GONE);
+
             mLoadingDialog.show();
             Log.i("show", "style_line");
         }
@@ -239,7 +254,7 @@ public class LoadingDialog implements FinishDrawListener {
      * @return 这个对象
      */
     public LoadingDialog setLoadingText(String msg) {
-        if (msg != null) {
+        if (!TextUtils.isEmpty(msg)) {
             loadingText.setVisibility(View.VISIBLE);
             loadingText.setText(msg);
         } else loadingText.setVisibility(View.GONE);
@@ -278,7 +293,7 @@ public class LoadingDialog implements FinishDrawListener {
         hideAll();
         mSuccessView.setDrawDynamic(openSuccessAnim);
         mSuccessView.setVisibility(View.VISIBLE);
-        if (loadSuccessStr == null) {
+        if (TextUtils.isEmpty(loadSuccessStr)) {
             loadingText.setVisibility(View.GONE);
         } else {
             loadingText.setVisibility(View.VISIBLE);
@@ -296,7 +311,7 @@ public class LoadingDialog implements FinishDrawListener {
         hideAll();
         mFailedView.setDrawDynamic(openFailedAnim);
         mFailedView.setVisibility(View.VISIBLE);
-        if (loadFailedStr == null) {
+        if (TextUtils.isEmpty(loadFailedStr)) {
             loadingText.setVisibility(View.GONE);
         } else {
             loadingText.setVisibility(View.VISIBLE);
@@ -448,7 +463,7 @@ public class LoadingDialog implements FinishDrawListener {
      *
      * @param o 回调接口
      */
-    public void setOnFinishListener(OnFinshListener o) {
+    public void setOnFinishListener(OnFinishListener o) {
         this.o = o;
     }
 
@@ -457,7 +472,7 @@ public class LoadingDialog implements FinishDrawListener {
      *
      * @param d dismiss callback
      */
-    public LoadingDialog setDimissListener(DismissListener d) {
+    public LoadingDialog setDismissListener(DismissListener d) {
         this.d = d;
         return this;
     }
@@ -465,11 +480,11 @@ public class LoadingDialog implements FinishDrawListener {
     /**
      * 监听器
      */
-    public interface OnFinshListener {
+    public interface OnFinishListener {
         void onFinish();
     }
 
     public interface DismissListener {
-        void dimiss();
+        void dismiss();
     }
 }

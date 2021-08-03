@@ -87,7 +87,8 @@ public class HDialoger implements Dialoger {
         mBackgroundView = dialogerView.mBackgroundView;
 
         final int defaultPadding = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.1f);
-        setPadding(defaultPadding, 0, defaultPadding, 0);
+        final int defaultHeightPadding = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.1f);
+        setPadding(defaultPadding, defaultHeightPadding, defaultPadding, defaultHeightPadding);
 
         setGravity(Gravity.CENTER);
         setBackgroundColor(Color.parseColor("#66000000"));

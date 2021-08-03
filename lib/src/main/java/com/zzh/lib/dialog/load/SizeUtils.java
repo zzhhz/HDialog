@@ -11,7 +11,7 @@ import android.content.Context;
  * @Author: zzh
  * @Description:
  */
-public class SizeUtils {
+class SizeUtils {
     /**
      * dp转px
      */
@@ -21,26 +21,12 @@ public class SizeUtils {
     }
 
     /**
-     * px转dp
+     * 屏幕尺寸的1/3
+     *
+     * @param ctx
+     * @return 尺寸
      */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
-    /**
-     * px转sp
-     */
-    public static int px2sp(Context context, float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue / fontScale + 0.5f);
-    }
-
-    /**
-     * sp转px
-     */
-    public static int sp2px(Context context, float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
+    public static int getDefaultLoadingDialogWidth(Context ctx) {
+        return ctx.getResources().getDisplayMetrics().widthPixels / 3;
     }
 }

@@ -14,7 +14,7 @@ import com.zzh.lib.dialog.load.LoadingDialog;
 public class StyleManager {
     public static StyleManager getDefault() {
         return new StyleManager(true, 0, LoadingDialog.Speed.SPEED_TWO, -1, -1, 1000L,
-                true, "加载中...", "加载成功", "加载失败");
+                true, "", "加载成功", "加载失败");
     }
 
     public StyleManager() {
@@ -81,7 +81,7 @@ public class StyleManager {
 
     private boolean interceptBack = true;
 
-    private String loadText = "加载中...";
+    private String loadText = "";
 
     private String successText = "加载成功";
 

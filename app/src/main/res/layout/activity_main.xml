@@ -18,5 +18,10 @@
         android:layout_height="wrap_content"
         android:text="测"
         android:onClick="onClickView1"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加载窗口"
+        android:onClick="onClickView2"/>
 
 </LinearLayout>

@@ -46,7 +46,7 @@ public class LoadCircleView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
 //        mPaint.setColor(Color.BLACK);
-        mPaint.setStrokeWidth(8);
+        mPaint.setStrokeWidth(4);
     }
 
     @Override
