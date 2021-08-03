@@ -18,6 +18,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LoadingDialog.initStyle(StyleManager.getDefault().setLoadStyle(LoadingDialog.STYLE_LINE).failedText("").loadText("").repeatTime(0).intercept(false).speed(LoadingDialog.Speed.SPEED_FOUR));
+        LoadingDialog.initStyle(StyleManager.getDefault().setLoadStyle(LoadingDialog.STYLE_LINE).failedText("加载失败...").loadText("正在加载").repeatTime(0).intercept(false).speed(LoadingDialog.Speed.SPEED_FOUR));
     }
 }
