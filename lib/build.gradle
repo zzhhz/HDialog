@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.0.5"
+        versionCode 6
+        versionName "1.0.6"
     }
 
     buildTypes {
@@ -23,5 +23,5 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.gitee.zzhhz:ViewTracker:1.1.0'
+    implementation 'com.gitee.zzhhz:ViewTracker:1.1.1'
 }
