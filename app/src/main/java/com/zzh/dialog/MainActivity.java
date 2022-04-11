@@ -2,9 +2,15 @@ package com.zzh.dialog;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
+import com.zzh.lib.dialog.DialogConfirmView;
+import com.zzh.lib.dialog.DialogMenuView;
+import com.zzh.lib.dialog.Dialoger;
 import com.zzh.lib.dialog.animator.AlphaCreator;
+import com.zzh.lib.dialog.impl.HDialogConfirmView;
+import com.zzh.lib.dialog.impl.HDialogMenuView;
 import com.zzh.lib.dialog.load.LoadingDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,8 +40,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickView1(View v) {
-        BindTipsDialog dialog = new BindTipsDialog(this);
-        dialog.show();
+        HDialogConfirmView view = new HDialogConfirmView(this);
+        Dialoger dialoger = view.getDialoger();
+        dialoger.show();
+        view.setCallback(new DialogConfirmView.Callback() {
+            @Override
+            public void onClickCancel(View v, DialogConfirmView view) {
+                super.onClickCancel(v, view);
+                Log.e("-----", "cancel");
+            }
+
+            @Override
+            public void onClickConfirm(View v, DialogConfirmView view) {
+                super.onClickConfirm(v, view);
+                Log.e("-----", "onClickConfirm");
+            }
+        });
+
     }
 
     public void onClickView2(View v) {
@@ -47,4 +68,24 @@ public class MainActivity extends AppCompatActivity {
             dialog.close();
         }, 3000);
     }
+
+    public void onClickView3(View v) {
+        HDialogMenuView view = new HDialogMenuView(this);
+        view.setItems("一", "二", "伞");
+        Dialoger dialoger = view.getDialoger();
+        dialoger.show();
+        view.setCallback(new DialogMenuView.Callback() {
+            @Override
+            public void onClickItem(View v, int index, DialogMenuView view) {
+                super.onClickItem(v, index, view);
+            }
+
+            @Override
+            public void onClickCancel(View v, DialogMenuView view) {
+                super.onClickCancel(v, view);
+            }
+        });
+    }
+
+
 }

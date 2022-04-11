@@ -17,5 +17,6 @@ public class ShowDialog extends HDialoger {
     public ShowDialog(Activity activity) {
         super(activity, R.style.dialog_pop);
         setContentView(R.layout.dialog_test);
+
     }
 }
