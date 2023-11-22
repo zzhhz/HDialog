@@ -20,5 +20,5 @@ android {
 }
 
 dependencies {
-    implementation 'com.gitee.zzhhz:ViewTracker:1.1.1'
+    implementation 'com.github.zzhhz:ViewTracker:1.1.0'
 }
